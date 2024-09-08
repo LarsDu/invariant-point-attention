@@ -1,0 +1,31 @@
+[project]
+name = "invariant-point-attention"
+version = "0.2.0"
+description = "Invariant point attention by lucidrains ported to rye and stripped of pytorch3d reqs"
+authors = [
+    { name = "Larry Du", email = "larrydu88@gmail.com" }
+]
+dependencies = [
+    "torch",
+    "einops",
+    "numpy",
+    "pandas",
+    "sidechainnet",
+    "openmm",
+]
+readme = "README.md"
+requires-python = ">= 3.10, <3.12"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.rye]
+managed = true
+dev-dependencies = []
+
+[tool.hatch.metadata]
+allow-direct-references = true
+
+[tool.hatch.build.targets.wheel]
+packages = ["invariant_point_attention"]
