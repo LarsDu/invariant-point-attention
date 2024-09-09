@@ -12,6 +12,7 @@ dependencies = [
     "pandas",
     "sidechainnet",
     "openmm",
+    "ipykernel>=6.29.5",
 ]
 readme = "README.md"
 requires-python = ">= 3.10, <3.12"

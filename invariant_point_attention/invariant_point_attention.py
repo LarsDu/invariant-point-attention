@@ -304,7 +304,7 @@ class IPATransformer(nn.Module):
         pairwise_repr = None,
         mask = None
     ):
-        x, device, quaternion_multiply, quaternion_to_matrix = single_repr, single_repr.device, self.quaternion_multiply, self.quaternion_to_matrix
+        x, device = single_repr, single_repr.device
         b, n, *_ = x.shape
 
         if exists(self.token_emb):
