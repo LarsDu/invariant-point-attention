@@ -6,7 +6,7 @@ from torch import nn, einsum
 
 from einops.layers.torch import Rearrange
 from einops import rearrange, repeat
-
+from invariant_point_attention.quaternion import quaternion_to_matrix, quaternion_multiply
 # helpers
 
 def exists(val):
@@ -267,15 +267,9 @@ class IPATransformer(nn.Module):
     ):
         super().__init__()
 
-        # using quaternion functions from pytorch3d
-
-        try:
-            from pytorch3d.transforms import quaternion_multiply, quaternion_to_matrix
-            self.quaternion_to_matrix = quaternion_to_matrix
-            self.quaternion_multiply = quaternion_multiply
-        except (ImportError, ModuleNotFoundError) as err:
-            print('unable to import pytorch3d - please install with `conda install pytorch3d -c pytorch3d`')
-            raise err
+        self.quaternion_to_matrix = quaternion_to_matrix
+        self.quaternion_multiply = quaternion_multiply
+       
 
         # embedding
 
@@ -310,7 +304,7 @@ class IPATransformer(nn.Module):
         pairwise_repr = None,
         mask = None
     ):
-        x, device, quaternion_multiply, quaternion_to_matrix = single_repr, single_repr.device, self.quaternion_multiply, self.quaternion_to_matrix
+        x, device = single_repr, single_repr.device
         b, n, *_ = x.shape
 
         if exists(self.token_emb):

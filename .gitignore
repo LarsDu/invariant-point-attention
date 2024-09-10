@@ -1,3 +1,7 @@
+# sidechainnet
+sidechainnet_data/
+notebooks/sidechainnet_data
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]

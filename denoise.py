@@ -39,17 +39,16 @@ optim = Adam(net.parameters(), lr=1e-3)
 for _ in range(10000):
     for _ in range(GRADIENT_ACCUMULATE_EVERY):
         batch = next(dl)
-        seqs, coords, masks = batch.seqs, batch.crds, batch.msks
+        batch.fillna(0.0)
+        seqs, coords, masks = batch.seqs_int, batch.coords, batch.masks
 
-        seqs = seqs.cuda().argmax(dim = -1)
+        seqs = seqs.cuda()
         coords = coords.cuda()
         masks = masks.cuda().bool()
 
         l = seqs.shape[1]
-        coords = rearrange(coords, 'b (l s) c -> b l s c', s = 14)
 
         # Keeping only the Ca atom
-
         coords = coords[:, :, 1, :]
         noised_coords = coords + torch.randn_like(coords)
 
